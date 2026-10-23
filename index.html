@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Poder polarizante dos cátions</title>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--bg:#f7f6f2;--card:#fff;--tx:#1d1d1b;--mut:#6b6a64;--bd:#dcdad2;--ac:#c2410c;color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#171716;--card:#222220;--tx:#eeede8;--mut:#a3a199;--bd:#3a3935;--ac:#fb923c;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#171716;--card:#222220;--tx:#eeede8;--mut:#a3a199;--bd:#3a3935;--ac:#fb923c;color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif;padding:20px}
+h1{font-size:22px;margin:0 0 4px}p.s{color:var(--mut);margin:0 0 14px;max-width:780px}
+.ctl{display:flex;flex-wrap:wrap;gap:14px;align-items:center;background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:10px 14px;margin-bottom:14px;font-size:14px}
+.ctl input[type=range]{flex:1;min-width:140px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:14px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:12px}
+.card h2{font-size:18px;margin:0 0 6px}
+canvas{width:100%;height:auto;display:block;border-radius:8px;background:rgba(127,127,127,.06)}
+.sel{display:flex;gap:8px;margin:8px 0}
+.sel label{flex:1;font-size:12px;color:var(--mut)}
+select{width:100%;padding:6px;border-radius:6px;border:1px solid var(--bd);background:var(--bg);color:var(--tx);font-size:14px}
+.m{display:flex;justify-content:space-between;font-size:13px;color:var(--mut)}.m b{color:var(--tx)}
+.bar{height:8px;background:var(--bd);border-radius:4px;overflow:hidden;margin:6px 0}
+.bar i{display:block;height:100%;background:var(--ac)}
+.tag{font-size:14px;font-weight:600;color:var(--ac);margin-bottom:6px}
+.ex{font-size:13.5px;border-top:1px solid var(--bd);padding-top:8px;margin-top:6px}
+.ex ul{margin:4px 0 6px;padding-left:18px}.ex li{margin:3px 0}
+.ex .cn{background:rgba(245,165,36,.14);border-radius:8px;padding:6px 9px;margin-top:6px}
+.card.w{margin-top:14px}.card.w h2{font-size:17px}
+.r{display:flex;align-items:center;gap:10px;margin:6px 0}.r span:first-child{width:90px;font-weight:600}.r .bar{flex:1;margin:0;height:12px}
+details{border-top:1px solid var(--bd);padding:8px 0}summary{cursor:pointer;font-weight:600}
+details p,details li{font-size:14px;color:var(--tx)}details ul{padding-left:18px}
+.leg{font-size:13px;color:var(--mut);margin-top:12px}
+.dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin:0 4px 0 8px}
+</style></head><body>
+<h1>Poder polarizante: carga e raio do cátion</h1>
+<p class="s">Monte até 4 compostos escolhendo cátion e ânion. A animação aproxima o cátion e mostra a nuvem eletrônica do ânion sendo deformada; abaixo de cada animação está a explicação do porquê o composto é mais iônico ou mais covalente.</p>
+<div class="ctl"><label><input type="checkbox" id="auto" checked> Animação automática</label><label style="flex:1;display:flex;gap:8px;align-items:center;min-width:220px">Aproximação <input type="range" id="sl" min="0" max="100" value="100"></label></div>
+<div class="grid" id="g"></div>
+<div class="card w"><h2>Ranking de polarização</h2><div id="rk"></div><div class="leg"><span class="dot" style="background:#e5484d"></span>cátion <span class="dot" style="background:#4f8cff"></span>nuvem do ânion (tracejado: sem polarização) <span class="dot" style="background:#f5a524"></span>densidade eletrônica compartilhada</div></div>
+<div class="card w"><h2>Para Química Inorgânica I</h2>
+<details open><summary>Regras de Fajans</summary><p>O grau de covalência de um composto iônico aumenta quando: (1) o cátion tem <b>carga alta</b> e <b>raio pequeno</b> (alto potencial iônico, z/r); (2) o ânion é <b>grande</b> e/ou de <b>carga elevada</b>, logo sua nuvem é frouxa e polarizável; (3) o cátion tem configuração de <b>não gás nobre</b> (p.ex. 18 e⁻, como Cu⁺, Ag⁺, Zn²⁺), pois os elétrons d blindam mal a carga nuclear e o campo efetivo é maior que o de um cátion de gás nobre de mesmo tamanho.</p></details>
+<details><summary>Consequências nas propriedades</summary><ul><li><b>Ponto de fusão:</b> NaCl funde a 801 °C, MgCl₂ a ≈ 714 °C e AlCl₃ sublima a ≈ 180 °C: a redução marca a passagem de rede iônica para espécies moleculares (Al₂Cl₆).</li><li><b>Solubilidade:</b> haletos de prata, de AgF (solúvel) a AgI (muito insolúvel), caem em solubilidade conforme o ânion fica mais polarizável.</li><li><b>Estabilidade térmica:</b> MgCO₃ se decompõe a temperaturas bem menores que BaCO₃, porque Mg²⁺ polariza o CO₃²⁻ e favorece a perda de CO₂.</li><li><b>Cor:</b> AgCl é branco, AgBr amarelo-claro e AgI amarelo; maior polarização aproxima os níveis e dá transferência de carga na região visível.</li><li><b>Condutividade:</b> compostos muito iônicos conduzem quando fundidos; os covalentes (AlCl₃, TiCl₄) fundidos conduzem muito mal.</li></ul></details>
+<details><summary>Exemplos clássicos</summary><ul><li><b>Relação diagonal:</b> Li⁺ (76 pm) ≈ Mg²⁺ (72 pm) e Be²⁺ ≈ Al³⁺ têm potenciais iônicos próximos, com comportamentos químicos parecidos.</li><li><b>BeCl₂</b> forma cadeias covalentes; <b>TiCl₄</b> é líquido molecular; <b>CsF</b> é um dos compostos mais iônicos.</li><li><b>Ciclo de Born–Haber:</b> para haletos de prata, a energia reticular experimental é maior que a calculada pelo modelo 100% iônico; a diferença cresce de AgCl a AgI e indica contribuição covalente.</li></ul></details>
+<details><summary>Ligações com outros conceitos</summary><ul><li><b>Pearson (ácidos e bases duros e moles):</b> cátions pequenos e muito carregados são duros e preferem ânions duros (F⁻, O²⁻); cátions grandes ou de 18 e⁻ são moles e combinam com ânions moles (I⁻, S²⁻).</li><li><b>Eletronegatividade:</b> a polarização é a visão “orbital/nuvem” do mesmo fenômeno que a diferença de Pauling descreve; ambas indicam um contínuo entre iônico e covalente, sem fronteira nítida.</li></ul></details>
+<details><summary>Limites do modelo desta simulação</summary><p>O índice é qualitativo: (z/r do cátion) × (r do ânion/181 pm)³ × fator de carga do ânion. Ele ordena tendências, mas não prevê valores absolutos nem exceções em que a energia reticular domina (p.ex. LiF é pouco solúvel). Raios de Shannon, número de coordenação 6.</p></details></div>
+<script>
+const C={"Li⁺":[1,76],"Na⁺":[1,102],"K⁺":[1,138],"Cs⁺":[1,167],"Cu⁺":[1,77,1],"Ag⁺":[1,115,1],"Be²⁺":[2,45],"Mg²⁺":[2,72],"Ca²⁺":[2,100],"Ba²⁺":[2,135],"Zn²⁺":[2,74,1],"Al³⁺":[3,53.5],"Fe³⁺":[3,64.5],"Ti⁴⁺":[4,60.5]};
+const A={"F⁻":[1,133],"Cl⁻":[1,181],"Br⁻":[1,196],"I⁻":[1,220],"O²⁻":[2,140],"S²⁻":[2,184]};
+const NC={"Li⁺":"Li⁺ é o alcalino mais polarizante; mostra relação diagonal com Mg²⁺.","Na⁺":"Na⁺ tem gás nobre e carga +1: referência de cátion pouco polarizante.","K⁺":"K⁺ é grande e de baixa carga, quase sempre dá compostos muito iônicos.","Cs⁺":"Cs⁺ é o menos polarizante da lista; CsF é um dos compostos mais iônicos.","Cu⁺":"Cu⁺ (18 e⁻) polariza mais que um cátion de gás nobre de tamanho semelhante; CuCl e CuI têm forte caráter covalente.","Ag⁺":"Ag⁺ (18 e⁻) é maior que Na⁺, mas polariza muito mais; daí AgI ser insolúvel e colorido.","Be²⁺":"Be²⁺ é minúsculo e bivalente: BeCl₂ é covalente e Be(OH)₂ é anfótero, como o Al(OH)₃.","Mg²⁺":"Mg²⁺ já polariza ânions grandes de forma apreciável (relação diagonal com Li⁺).","Ca²⁺":"Ca²⁺ é bivalente, mas razoavelmente grande; mantém caráter iônico alto com ânions pequenos.","Ba²⁺":"Ba²⁺ é grande, por isso os sais (carbonato, sulfato) são térmicamente estáveis.","Zn²⁺":"Zn²⁺ (18 e⁻) polariza mais que Mg²⁺ de raio parecido; ZnI₂ é bastante covalente.","Al³⁺":"Al³⁺ tem potencial iônico altíssimo; AlCl₃ é molecular (dímero Al₂Cl₆).","Fe³⁺":"Fe³⁺ é trivalente e pequeno; FeCl₃ sublima, sinal de caráter covalente.","Ti⁴⁺":"Ti⁴⁺ tem z/r enorme; TiCl₄ é um líquido molecular."};
+const sub=n=>n==1?"":String(n).split("").map(d=>"₀₁₂₃₄₅₆₇₈₉"[d]).join("");
+const sym=s=>s.replace(/[⁺⁻²³⁴]/g,"");
+const gcd=(a,b)=>b?gcd(b,a%b):a;
+const def=[["Na⁺","Cl⁻"],["Mg²⁺","Cl⁻"],["Al³⁺","Cl⁻"],["Al³⁺","I⁻"]];
+const opts=o=>Object.keys(o).map(k=>`<option>${k}</option>`).join("");
+const $=id=>document.getElementById(id);
+const st=[];
+def.forEach((d,i)=>{
+ $("g").insertAdjacentHTML("beforeend",`<div class="card"><h2 id="t${i}"></h2><canvas id="c${i}" width="420" height="240"></canvas>
+ <div class="sel"><label>Cátion<select id="c_${i}">${opts(C)}</select></label><label>Ânion<select id="a_${i}">${opts(A)}</select></label></div>
+ <div class="m"><span>z/r do cátion</span><b id="p${i}"></b></div><div class="m"><span>Polarizabilidade do ânion (rel.)</span><b id="q${i}"></b></div>
+ <div class="m"><span>Índice de polarização</span><b id="x${i}"></b></div><div class="bar"><i id="b${i}"></i></div><div class="tag" id="k${i}"></div><div class="ex" id="e${i}"></div></div>`);
+ $("c_"+i).value=d[0];$("a_"+i).value=d[1];
+ $("c_"+i).onchange=$("a_"+i).onchange=upd;
+});
+function calc(i){
+ const c=$("c_"+i).value,a=$("a_"+i).value,[z,rc,ps]=C[c],[za,ra]=A[a];
+ const phi=z/(rc/100),pol=Math.pow(ra/181,3)*(1+0.15*(za-1)),idx=phi*pol,dl=1-Math.exp(-idx/6),gg=gcd(z,za);
+ return {c,a,z,rc,za,ra,ps,phi,pol,idx,dl,f:sym(c)+sub(za/gg)+sym(a)+sub(z/gg)};
+}
+function cls(d){return d<.2?"Predominantemente iônico":d<.45?"Iônico com leve covalência":d<.7?"Covalência significativa":"Predominantemente covalente"}
+function explain(s){
+ const lv=s.phi<1.2?"baixo":s.phi<2.5?"moderado":s.phi<4?"alto":"muito alto";
+ const an=s.pol>1.5?"grande/muito polarizável (nuvem frouxa)":s.pol>1?"de polarizabilidade média":"pequeno e pouco polarizável (nuvem compacta)";
+ const r=s.dl<.2?"A nuvem do ânion quase não se deforma: as cargas ficam localizadas em cada íon, a rede é iônica, de ponto de fusão alto, solúvel em água e condutora quando fundida.":
+ s.dl<.45?"A nuvem se desloca um pouco para o cátion, surgindo pequena densidade eletrônica compartilhada; o composto continua iônico, mas com leve covalência.":
+ s.dl<.7?"A densidade eletrônica se acumula entre os núcleos: há covalência significativa, com ponto de fusão menor e menor condutividade fundido que um sal tipicamente iônico.":
+ "A nuvem é puxada de forma intensa e forma uma região compartilhada entre os núcleos: o composto se aproxima de uma substância molecular, volátil, de baixo ponto de fusão e pouco condutora fundida.";
+ return `<b>Por que?</b><ul><li><b>Carga:</b> o cátion tem +${s.z}; ${s.z>1?"carga maior gera campo elétrico mais intenso sobre o ânion":"carga +1 gera campo relativamente fraco"}.</li><li><b>Raio:</b> ${s.rc} pm, logo z/r = ${s.phi.toFixed(2)} e/Å (${lv}).</li><li><b>Ânion:</b> ${sym(s.a)} (${s.ra} pm, carga −${s.za}) é ${an}.</li>${s.ps?`<li><b>Configuração:</b> o cátion tem 18 e⁻ (pseudo-gás nobre), que blindam mal o núcleo; ele polariza mais que um cátion de gás nobre de mesmo tamanho.</li>`:""}</ul>${r}<div class="cn">${NC[s.c]}</div>`;
+}
+function upd(){
+ for(let i=0;i<4;i++){const s=st[i]=calc(i);
+  $("t"+i).textContent=s.f+"  ("+s.c+" + "+s.a+")";
+  $("p"+i).textContent=s.phi.toFixed(2)+" e/Å";$("q"+i).textContent=s.pol.toFixed(2);$("x"+i).textContent=s.idx.toFixed(2);
+  $("b"+i).style.width=(s.dl*100)+"%";$("k"+i).textContent=cls(s.dl)+" · deformação máx. "+Math.round(s.dl*100)+"%";
+  $("e"+i).innerHTML=explain(s);}
+ const o=st.map(s=>s).sort((a,b)=>b.idx-a.idx);
+ $("rk").innerHTML=o.map(s=>`<div class="r"><span>${s.f}</span><div class="bar"><i style="width:${s.dl*100}%"></i></div><span style="width:50px;text-align:right">${s.idx.toFixed(1)}</span></div>`).join("")+
+ `<p class="leg">Mais covalente: <b>${o[0].f}</b> · Mais iônico: <b>${o[3].f}</b>.</p>`;
+}
+const ease=t=>t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2;
+function draw(ms){
+ const th=getComputedStyle(document.body).color,auto=$("auto").checked;let p;
+ if(auto){const tt=(ms/1000)%7;p=tt<3?ease(tt/3):tt<5.5?1:1-ease((tt-5.5)/1.5);$("sl").value=Math.round(p*100);}else p=$("sl").value/100;
+ for(let i=0;i<4;i++){const s=st[i];if(!s||!s.c)continue;
+  const x=$("c"+i).getContext("2d"),W=420,H=240,k=0.42,rc=s.rc*k,ra=s.ra*k,y=H/2,ax=W-ra-24;
+  x.clearRect(0,0,W,H);
+  const dl=s.dl*p,dF=(rc+ra)*(1-0.24*s.dl),far=Math.min(dF+140,ax-rc-6),dist=far+(dF-far)*p,x0=ax-dist,w=Math.sin(ms/450+i)*0.02*(0.4+p);
+  x.setLineDash([4,4]);x.strokeStyle="rgba(79,140,255,.5)";x.lineWidth=1;x.beginPath();x.arc(ax,y,ra,0,7);x.stroke();x.setLineDash([]);
+  x.beginPath();
+  for(let a=0;a<=72;a++){const q=a/72*Math.PI*2,c=Math.cos(q-Math.PI);
+   const r=ra*(1+dl*0.32*Math.pow(Math.max(0,c),2)-0.2*dl*Math.max(0,-c)+w);
+   const px=ax+Math.cos(q)*r,py=y+Math.sin(q)*r;a?x.lineTo(px,py):x.moveTo(px,py);}
+  x.closePath();
+  const gr=x.createRadialGradient(ax-dl*ra*0.3,y,ra*0.05,ax,y,ra*1.3);
+  gr.addColorStop(0,"rgba(79,140,255,.55)");gr.addColorStop(1,"rgba(79,140,255,.06)");
+  x.fillStyle=gr;x.fill();x.strokeStyle="rgba(79,140,255,.9)";x.lineWidth=1.5;x.stroke();
+  const mx=(x0+rc*0.6+ax-ra*0.75)/2,gr2=x.createRadialGradient(mx,y,2,mx,y,rc*1.3);
+  gr2.addColorStop(0,`rgba(245,165,36,${0.85*dl})`);gr2.addColorStop(1,"rgba(245,165,36,0)");
+  x.fillStyle=gr2;x.beginPath();x.arc(mx,y,rc*1.3,0,7);x.fill();
+  const gc=x.createRadialGradient(x0-rc*.3,y-rc*.3,1,x0,y,rc);gc.addColorStop(0,"#ff8a8e");gc.addColorStop(1,"#c9262b");
+  x.fillStyle=gc;x.beginPath();x.arc(x0,y,rc,0,7);x.fill();
+  x.strokeStyle="rgba(229,72,77,.6)";x.lineWidth=1.5;
+  for(const dy of [-0.5,0,0.5]){const L=8+s.phi*4*p+2,yy=y+dy*ra*0.8,sx=x0+rc+4;if(sx+L>ax-ra*0.5)continue;x.beginPath();x.moveTo(sx,yy);x.lineTo(sx+L,yy);x.lineTo(sx+L-4,yy-3);x.moveTo(sx+L,yy);x.lineTo(sx+L-4,yy+3);x.stroke();}
+  x.fillStyle=th;x.font="bold 13px system-ui";x.textAlign="center";
+  x.fillText(s.c,x0,Math.min(y+rc+16,H-6));x.fillText(s.a,ax,H-6);
+  x.font="11px system-ui";x.fillText(s.rc+" pm",x0,Math.max(y-rc-6,12));
+  x.textAlign="right";x.fillText("deformação: "+Math.round(dl*100)+"%",W-8,14);}
+ requestAnimationFrame(draw);
+}
+upd();requestAnimationFrame(draw);
+</script></body></html>
